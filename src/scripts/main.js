@@ -1,13 +1,14 @@
-'use strict';
+"use strict";
 
-const controlButton = document.querySelector('.button');
-const gameStartMessage = document.querySelector('.message-start');
-const gameWinMessage = document.querySelector('.message-win');
-const gameLoseMessage = document.querySelector('.message-lose');
-const gameField = document.querySelector('.game-field');
-const gameScore = document.querySelector('.game-score');
-const gameFieldArray = Array.from(gameField.querySelectorAll('.field-row'))
-  .map((row) => Array.from(row.querySelectorAll('.field-cell')));
+const controlButton = document.querySelector(".button");
+const gameStartMessage = document.querySelector(".message-start");
+const gameWinMessage = document.querySelector(".message-win");
+const gameLoseMessage = document.querySelector(".message-lose");
+const gameField = document.querySelector(".game-field");
+const gameScore = document.querySelector(".game-score");
+const gameFieldArray = Array.from(gameField.querySelectorAll(".field-row")).map(
+  (row) => Array.from(row.querySelectorAll(".field-cell")),
+);
 const fieldSize = gameFieldArray.length;
 
 let score = 0;
@@ -17,11 +18,10 @@ function updateScore() {
   gameScore.textContent = score;
 }
 
-controlButton.addEventListener('click', () => {
-  if (controlButton.classList.contains('restart')) {
+controlButton.addEventListener("click", () => {
+  if (controlButton.classList.contains("restart")) {
     const answer = confirm(
-      `Are you sure you want to restart the game?`
-      + `Your score will be lost!`,
+      `Are you sure you want to restart the game?` + `Your score will be lost!`,
     );
 
     if (answer) {
@@ -34,13 +34,13 @@ controlButton.addEventListener('click', () => {
 
 const buttonChangeTo = (btnText) => {
   switch (btnText) {
-    case 'Start':
-      controlButton.classList.value = 'button start';
-      controlButton.textContent = 'Start';
+    case "Start":
+      controlButton.classList.value = "button start";
+      controlButton.textContent = "Start";
       break;
-    case 'Restart':
-      controlButton.classList.value = 'button restart';
-      controlButton.textContent = 'Restart';
+    case "Restart":
+      controlButton.classList.value = "button restart";
+      controlButton.textContent = "Restart";
       break;
     default:
       break;
@@ -52,7 +52,7 @@ const getRandomEmptyCell = () => {
 
   for (let i = 0; i < fieldSize; i++) {
     for (let j = 0; j < fieldSize; j++) {
-      if (gameFieldArray[i][j].textContent === '') {
+      if (gameFieldArray[i][j].textContent === "") {
         emptyCells.push({
           row: i,
           col: j,
@@ -71,45 +71,51 @@ const generateNewNumber = () => {
   if (emptyCell) {
     const { row, col } = emptyCell;
 
-    gameFieldArray[row][col].textContent = newValue;
-    gameFieldArray[row][col].classList.add(`field-cell--${newValue}`);
+    const cell = gameFieldArray[row][col];
 
-    gameFieldArray[row][col].classList.add(`new-cell`);
+    cell.textContent = newValue;
+    cell.classList.add(`field-cell--${newValue}`);
+
+    cell.classList.remove(`new-cell`);
+
+    requestAnimationFrame(() => {
+      cell.classList.add(`new-cell`);
+    });
   }
 };
 
 const hideStartMessage = () => {
-  gameStartMessage.classList.add('hidden');
+  gameStartMessage.classList.add("hidden");
 };
 
 const startGame = () => {
   initalizeGame();
-  buttonChangeTo('Restart');
+  buttonChangeTo("Restart");
   hideStartMessage();
-  document.addEventListener('keydown', handleMove);
+  document.addEventListener("keydown", handleMove);
 };
 
 const restartGame = () => {
   initalizeGame();
 
-  if (!gameWinMessage.classList.contains('hidden')) {
-    gameWinMessage.classList.add('hidden');
+  if (!gameWinMessage.classList.contains("hidden")) {
+    gameWinMessage.classList.add("hidden");
   }
 
-  if (!gameLoseMessage.classList.contains('hidden')) {
-    gameLoseMessage.classList.add('hidden');
+  if (!gameLoseMessage.classList.contains("hidden")) {
+    gameLoseMessage.classList.add("hidden");
   }
 };
 
 const initalizeGame = () => {
-  if (gameField.classList.contains('game-field--lose')) {
-    gameField.classList.remove('game-field--lose');
+  if (gameField.classList.contains("game-field--lose")) {
+    gameField.classList.remove("game-field--lose");
   }
 
   gameFieldArray.forEach((row) => {
     row.forEach((cell) => {
-      cell.textContent = '';
-      cell.classList.value = 'field-cell';
+      cell.textContent = "";
+      cell.classList.value = "field-cell";
     });
   });
 
@@ -126,7 +132,7 @@ function moveAndMergeCells(cells, direction) {
   let moved = false;
 
   const mergeAndMove = (line) => {
-    let filtered = line.filter(val => val !== 0);
+    let filtered = line.filter((val) => val !== 0);
     const oldLine = [...line];
 
     for (let i = 0; i < filtered.length - 1; i++) {
@@ -136,7 +142,7 @@ function moveAndMergeCells(cells, direction) {
         score += filtered[i];
       }
     }
-    filtered = filtered.filter(val => val !== 0);
+    filtered = filtered.filter((val) => val !== 0);
 
     while (filtered.length < size) {
       filtered.push(0);
@@ -149,30 +155,31 @@ function moveAndMergeCells(cells, direction) {
     return filtered;
   };
 
-  if (direction === 'right' || direction === 'left') {
+  if (direction === "right" || direction === "left") {
     for (let i = 0; i < size; i++) {
       let row = cells[i];
 
-      if (direction === 'right') {
+      if (direction === "right") {
         row = row.reverse();
       }
       row = mergeAndMove(row);
 
-      if (direction === 'right') {
+      if (direction === "right") {
         row = row.reverse();
       }
+
       cells[i] = row;
     }
   } else {
     for (let i = 0; i < size; i++) {
-      let column = cells.map(row => row[i]);
+      let column = cells.map((row) => row[i]);
 
-      if (direction === 'down') {
+      if (direction === "down") {
         column = column.reverse();
       }
       column = mergeAndMove(column);
 
-      if (direction === 'down') {
+      if (direction === "down") {
         column = column.reverse();
       }
 
@@ -192,15 +199,24 @@ function handleMove(eventr) {
   let direction;
 
   switch (eventr.key) {
-    case 'ArrowUp': direction = 'up'; break;
-    case 'ArrowDown': direction = 'down'; break;
-    case 'ArrowLeft': direction = 'left'; break;
-    case 'ArrowRight': direction = 'right'; break;
-    default: return;
+    case "ArrowUp":
+      direction = "up";
+      break;
+    case "ArrowDown":
+      direction = "down";
+      break;
+    case "ArrowLeft":
+      direction = "left";
+      break;
+    case "ArrowRight":
+      direction = "right";
+      break;
+    default:
+      return;
   }
 
-  const cells = gameFieldArray.map(
-    row => row.map(cell => Number(cell.textContent) || 0),
+  const cells = gameFieldArray.map((row) =>
+    row.map((cell) => Number(cell.textContent) || 0),
   );
 
   const result = moveAndMergeCells(cells, direction);
@@ -210,8 +226,8 @@ function handleMove(eventr) {
       row.forEach((cell, j) => {
         const value = result.cells[i][j];
 
-        cell.textContent = value || '';
-        cell.classList.value = 'field-cell';
+        cell.textContent = value || "";
+        cell.classList.value = "field-cell";
 
         if (value) {
           cell.classList.add(`field-cell--${value}`);
@@ -225,8 +241,8 @@ function handleMove(eventr) {
     updateScore();
 
     if (isGameOver(result.cells)) {
-      gameLoseMessage.classList.remove('hidden');
-      gameField.classList.add('game-field--lose');
+      gameLoseMessage.classList.remove("hidden");
+      gameField.classList.add("game-field--lose");
 
       //* comment this for pass the tests//
       // setTimeout(() => {
@@ -235,12 +251,12 @@ function handleMove(eventr) {
     }
 
     if (isGameWon(result.cells)) {
-      gameWinMessage.classList.remove('hidden');
+      gameWinMessage.classList.remove("hidden");
 
       if (!isWinner) {
         setTimeout(() => {
           isWinner = true;
-          promptTheNewGame('win');
+          promptTheNewGame("win");
         }, 1000);
       }
     }
@@ -250,7 +266,7 @@ function handleMove(eventr) {
 function promptTheNewGame(result) {
   let message;
 
-  if (result === 'win') {
+  if (result === "win") {
     message = `Congratulations! You won! Your score is ${score}.`;
   } else {
     message = `Game over! Your score is ${score}.`;
@@ -260,11 +276,11 @@ function promptTheNewGame(result) {
 
   if (newGame) {
     restartGame();
-  } else if (result === 'win' && !newGame) {
+  } else if (result === "win" && !newGame) {
     return false;
   } else {
-    buttonChangeTo('Start');
-    document.removeEventListener('keydown', handleMove);
+    buttonChangeTo("Start");
+    document.removeEventListener("keydown", handleMove);
   }
 }
 
