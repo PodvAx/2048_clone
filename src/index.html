@@ -1,10 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2048</title>
     <link rel="stylesheet" href="./styles/main.scss" />
+    <link rel="icon" href="./assets/favicon.svg" />
+    <meta
+      name="description"
+      content="2048 game. Join the numbers and get to the 2048 tile!"
+    />
+    <meta
+      name="keywords"
+      content="2048, game, puzzle, numbers, tiles, join, 2048 tile"
+    />
+    <meta name="author" content="PodvAx" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="2048 Game by PodvAx" />
+    <meta
+      property="og:description"
+      content="2048 game. Join the numbers and get to the 2048 tile!"
+    />
+    <meta
+      property="og:image"
+      content="https://i.postimg.cc/yxzysGtq/2048-logo.png"
+    />
+    <meta property="og:url" content="https://podvax.github.io/2048_clone/" />
+    <meta property="og:type" content="game" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="2048 game by PodvAx" />
+    <meta
+      name="twitter:description"
+      content="2048 game. Join the numbers and get to the 2048 tile!"
+    />
+    <meta
+      name="twitter:image"
+      content="https://i.postimg.cc/yxzysGtq/2048-logo.png"
+    />
+    <meta http-equiv="Content-Language" content="en" />
   </head>
   <body>
     <div class="container">
@@ -16,37 +49,43 @@
         </div>
       </div>
 
-      <table class="game-field">
-        <tbody>
-          <tr class="field-row">
-            <td class="field-cell"></td>
-            <td class="field-cell"></td>
-            <td class="field-cell"></td>
-            <td class="field-cell"></td>
-          </tr>
+      <section class="game-board">
+        <table class="game-field">
+          <tbody>
+            <tr class="field-row">
+              <td class="field-cell"></td>
+              <td class="field-cell"></td>
+              <td class="field-cell"></td>
+              <td class="field-cell"></td>
+            </tr>
 
-          <tr class="field-row">
-            <td class="field-cell"></td>
-            <td class="field-cell"></td>
-            <td class="field-cell"></td>
-            <td class="field-cell"></td>
-          </tr>
+            <tr class="field-row">
+              <td class="field-cell"></td>
+              <td class="field-cell"></td>
+              <td class="field-cell"></td>
+              <td class="field-cell"></td>
+            </tr>
 
-          <tr class="field-row">
-            <td class="field-cell"></td>
-            <td class="field-cell"></td>
-            <td class="field-cell"></td>
-            <td class="field-cell"></td>
-          </tr>
+            <tr class="field-row">
+              <td class="field-cell"></td>
+              <td class="field-cell"></td>
+              <td class="field-cell"></td>
+              <td class="field-cell"></td>
+            </tr>
 
-          <tr class="field-row">
-            <td class="field-cell"></td>
-            <td class="field-cell"></td>
-            <td class="field-cell"></td>
-            <td class="field-cell"></td>
-          </tr>
-        </tbody>
-      </table>
+            <tr class="field-row">
+              <td class="field-cell"></td>
+              <td class="field-cell"></td>
+              <td class="field-cell"></td>
+              <td class="field-cell"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="tile-container">
+          <div class="tile tile--2">2</div>
+        </div>
+      </section>
 
       <div class="message-container">
         <p class="message message-lose hidden">You lose! Restart the game?</p>
@@ -56,6 +95,6 @@
         </p>
       </div>
     </div>
-    <script type="text/javascript" src="scripts/main.js"></script>
+    <script type="module" src="scripts/main.js"></script>
   </body>
 </html>
