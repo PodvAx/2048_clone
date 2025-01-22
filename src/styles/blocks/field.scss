@@ -1,0 +1,29 @@
+.field {
+  background-color: #bbada0;
+  padding: var(--cell-gap);
+  border-radius: var(--border-radius);
+  display: grid;
+  grid-template-columns: repeat(var(--game-size), 1fr);
+  grid-template-rows: repeat(var(--game-size), 1fr);
+  gap: var(--cell-gap);
+
+  // prettier-ignore
+  width: calc(
+    var(--base-unit) * var(--game-size) + var(--cell-gap) * 2 + var(--cell-gap) * (var(--game-size) - 1)
+  );
+
+  // prettier-ignore
+  height: calc(
+    var(--base-unit) * var(--game-size) + var(--cell-gap) * 2 + var(--cell-gap) * (var(--game-size) - 1)
+  );
+
+  &__cell {
+    background: #d6cdc4;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border-radius: var(--border-radius);
+    color: #776e65;
+    text-align: center;
+    user-select: none;
+  }
+}

@@ -1,0 +1,21 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100vw;
+  height: 100vh;
+
+  &__board {
+    position: relative;
+  }
+
+  &__tile-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -91,6 +91,4 @@ export const updateGrid = (game, tileContainer) => {
       }
     }
   }
-
-  game.movesAndMerges = [];
 };

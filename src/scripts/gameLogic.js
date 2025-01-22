@@ -1,10 +1,8 @@
-import { randomInt, transpose, reverseRows, deepCopy } from "./utils.js";
+import { GAME_SIZE } from "./utils/constants.js";
+import { randomInt, transpose, reverseRows, deepCopy } from "./utils/utils.js";
 
-/**
- * Core game logic for 2048.
- */
 export class Game {
-  constructor(size = 4) {
+  constructor(size = GAME_SIZE) {
     this.size = size;
     this.grid = this.createEmptyGrid();
     this.score = 0;
@@ -19,13 +17,7 @@ export class Game {
   }
 
   spawnTile() {
-    const emptyCells = [];
-
-    this.grid.forEach((row, rowIndex) => {
-      row.forEach((value, colIndex) => {
-        if (value === 0) emptyCells.push({ row: rowIndex, col: colIndex });
-      });
-    });
+    const emptyCells = this.getEmptyCells();
 
     if (emptyCells.length > 0) {
       const { row, col } = emptyCells[randomInt(0, emptyCells.length)];
@@ -36,20 +28,49 @@ export class Game {
     }
   }
 
+  getEmptyCells() {
+    const emptyCells = [];
+
+    this.grid.forEach((row, rowIndex) => {
+      row.forEach((value, colIndex) => {
+        if (value === 0) emptyCells.push({ row: rowIndex, col: colIndex });
+      });
+    });
+
+    return emptyCells;
+  }
+
+  transformGrid(direction, reverse = false) {
+    const transposeAndReverse = (grid) => reverseRows(transpose(grid));
+    const reverseAndTranspose = (grid) => transpose(reverseRows(grid));
+
+    switch (direction) {
+      case "up":
+        this.grid = transpose(this.grid);
+        break;
+      case "down":
+        this.grid = reverse
+          ? reverseAndTranspose(this.grid)
+          : transposeAndReverse(this.grid);
+        break;
+      case "right":
+        this.grid = reverseRows(this.grid);
+        break;
+    }
+  }
+
   move(direction, tileContainer) {
     const originalGrid = deepCopy(this.grid);
 
     this.newTiles = [];
+    this.movesAndMerges = [];
 
-    if (direction === "up") this.grid = transpose(this.grid);
-    if (direction === "down") this.grid = reverseRows(transpose(this.grid));
-    if (direction === "right") this.grid = reverseRows(this.grid);
+    this.transformGrid(direction);
 
     for (let row = 0; row < this.size; row++) {
       const { result, moves } = this.slideAndMerge(
         this.grid[row],
         row,
-        tileContainer,
         direction,
       );
 
@@ -57,9 +78,7 @@ export class Game {
       if (moves.length > 0) this.movesAndMerges.push(...moves);
     }
 
-    if (direction === "up") this.grid = transpose(this.grid);
-    if (direction === "down") this.grid = transpose(reverseRows(this.grid));
-    if (direction === "right") this.grid = reverseRows(this.grid);
+    this.transformGrid(direction, true);
 
     if (JSON.stringify(originalGrid) !== JSON.stringify(this.grid)) {
       this.spawnTile();
@@ -67,21 +86,16 @@ export class Game {
     }
   }
 
-  calculateMoves(row, direction, rowIndex) {
+  slideAndMerge(row, rowIndex, direction) {
     const moves = [];
     const result = Array(row.length).fill(0);
     const occupiedPositions = new Array(row.length).fill(false);
-
-    let targetIndex = 0; // Позиція, куди можна зсунути плитку
+    let targetIndex = 0;
 
     const addMove = ({ fromCol, toCol, fromRow, toRow, value, isMerged }) => {
       if (fromCol === toCol && fromRow === toRow) return;
       moves.push({ fromCol, toCol, fromRow, toRow, value, isMerged });
     };
-
-    // const addMerge = (rowI, colIndex, val) => {
-    //   merges.push({ row: rowI, col: colIndex, value: val });
-    // };
 
     const getCoordinates = (i, tIndex) => {
       let fromCol, toCol, fromRow, toRow;
@@ -117,10 +131,9 @@ export class Game {
     };
 
     for (let i = 0; i < row.length; i++) {
-      if (row[i] === 0) continue; // Пропускаємо нулі
+      if (row[i] === 0) continue;
 
       if (result[targetIndex] === 0) {
-        // Позиція порожня
         result[targetIndex] = row[i];
 
         const { fromCol, toCol, fromRow, toRow } = getCoordinates(
@@ -140,8 +153,8 @@ export class Game {
         result[targetIndex] === row[i] &&
         !occupiedPositions[targetIndex]
       ) {
-        // Значення збігаються, об'єднуємо плитки
         result[targetIndex] *= 2;
+        this.score += result[targetIndex];
         occupiedPositions[targetIndex] = true;
 
         const { fromCol, toCol, fromRow, toRow } = getCoordinates(
@@ -157,9 +170,8 @@ export class Game {
           value: row[i],
           isMerged: true,
         });
-        targetIndex++; // Наступна позиція
+        targetIndex++;
       } else {
-        // Значення різні, рухаємо до наступної доступної позиції
         targetIndex++;
         result[targetIndex] = row[i];
 
@@ -178,27 +190,6 @@ export class Game {
         });
       }
     }
-
-    return moves;
-  }
-
-  slideAndMerge(row, rowIndex, tileContainer, direction) {
-    const filteredRow = row.filter((val) => val !== 0);
-
-    for (let i = 0; i < filteredRow.length - 1; i++) {
-      if (filteredRow[i] === filteredRow[i + 1]) {
-        filteredRow[i] *= 2;
-        this.score += filteredRow[i];
-        filteredRow[i + 1] = 0;
-      }
-    }
-
-    const mergedRow = filteredRow.filter((val) => val !== 0);
-    const result = mergedRow.concat(
-      Array(this.size - mergedRow.length).fill(0),
-    );
-
-    const moves = this.calculateMoves(row, direction, rowIndex);
 
     return { result, moves };
   }

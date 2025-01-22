@@ -1,0 +1,52 @@
+:root {
+  --base-unit: 0;
+  --cell-gap: 0;
+  --border-radius: 0;
+  --game-size: 0;
+  --cell-size: var(--base-unit);
+
+  // --game-size: 4;
+  // --vertical-margins: calc(2 * 10px);
+  // --horizontal-margins: calc(2 * 10px);
+  // --header-height: 80px;
+  // --gap-between-header-and-game: 1.5rem;
+
+  // // prettier-ignore
+  // --base-unit: calc(
+  //   min(
+  //     (100vw - var(--vertical-margins)) / var(--game-size) - var(--vertical-margins),
+  //     (100vh - var(--header-height) - var(--gap-between-header-and-game) - var(--horizontal-margins)) / var(--game-size) - var(--horizontal-margins)
+  //   )
+  // );
+  // --cell-gap: calc(var(--base-unit) / 8);
+  // --border-radius: calc(var(--base-unit) / 10);
+  // --game-width: calc(var(--base-unit) * var(--game-size));
+  // --game-height: calc(var(--game-width));
+  // --cell-size: calc(var(--game-width) / var(--game-size));
+
+  // font-size: calc(var(--cell-size) / 4);
+
+  // @include on-tablet {
+  //   --vertical-margins: calc(30px * 2);
+  //   --horizontal-margins: calc(30px * 2);
+  //   --header-height: 100px;
+  // }
+
+  // @include on-desktop {
+  //   --vertical-margins: calc(40px * 2);
+  //   --horizontal-margins: calc(40px * 2);
+  //   --header-height: 120px;
+  // }
+
+  // @include on-large-desktop {
+  //   --vertical-margins: calc(50px * 2);
+  //   --horizontal-margins: calc(50px * 2);
+  //   --header-height: 150px;
+  // }
+
+  // @include on-biggest-desktop {
+  //   --vertical-margins: calc(60px * 2);
+  //   --horizontal-margins: calc(60px * 2);
+  //   --header-height: 190px;
+  // }
+}
