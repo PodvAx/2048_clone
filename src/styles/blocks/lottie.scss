@@ -1,0 +1,9 @@
+.lottie {
+  background: transparent;
+
+  // prettier-ignore
+  width: calc(
+    var(--base-unit) * var(--game-size) + var(--cell-gap) * 2 + var(--cell-gap) * (var(--game-size) - 1)
+  );
+  height: auto;
+}

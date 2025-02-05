@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
@@ -58,9 +57,13 @@
       <div class="game__header header">
         <h1 class="header__title">2048</h1>
         <div class="header__controls">
+          <p class="header__info">
+            Best: <span class="game-best-score">0</span>
+          </p>
           <p class="header__info">Score: <span class="game-score">0</span></p>
           <button class="header__button header__button--start">Start</button>
         </div>
+        <button class="header__show-tip"></button>
       </div>
 
       <section class="game__board board">
@@ -68,17 +71,49 @@
 
         <div class="game__tile-container tile-container"></div>
 
-        <div class="message-container hidden">
-          <p class="message message-lose hidden">You lose! Restart the game?</p>
-          <p class="message message-win hidden">
-            Winner! Congrats! You did it!
-          </p>
-          <p class="message message-start">
-            Press "Start" to begin game. Good luck!
+        <div class="game__confirm confirm hidden">
+          <p class="confirm__message message message--win hidden"></p>
+          <p class="confirm__message message message--lose hidden"></p>
+          <p class="confirm__text"></p>
+          <div class="confirm__buttons">
+            <button class="confirm__button confirm__button--yes">Yes</button>
+            <button class="confirm__button confirm__button--no">No</button>
+          </div>
+        </div>
+
+        <div class="game__message-container">
+          <p class="message message--start">
+            Press "Start" to begin game.<br />Good luck!
           </p>
         </div>
       </section>
     </div>
+
+    <div class="tip hidden">
+      <p class="tip__text">
+        <span class="tip__title tip__title--main">Game goal:</span> Merge
+        numbers to get 2048.
+      </p>
+      <p class="tip__text tip__text--additional">
+        <span class="tip__title tip__title--additional">Additional goal:</span>
+        Try to get the largest number that you can
+      </p>
+      <p class="tip__text tip__text--small">
+        <span class="tip__title tip__title--small">Tip: </span>Merge tiles with
+        the same number to create a new tile with a bigger number.
+      </p>
+      <h2 class="tip__main-title">How to play?</h2>
+      <canvas class="lottie" id="lottie-canvas"></canvas>
+      <p class="tip__text" id="tip-text">Use arrow keys to move the tiles</p>
+      <label for="tip-checkbox" class="tip__checkbox">
+        <input type="checkbox" id="tip-checkbox" class="tip__checkbox-input" />
+        <span class="tip__text tip__text--additional">
+          Don't show this tip again
+        </span>
+      </label>
+      <button class="tip__button">Ok</button>
+    </div>
+
     <script type="module" src="scripts/main.js"></script>
   </body>
 </html>

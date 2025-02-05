@@ -43,5 +43,12 @@
     "linters": {
       "bem": false
     }
+  },
+  "dependencies": {
+    "@lottiefiles/dotlottie-web": "^0.40.1"
+  },
+  "staticFiles": {
+    "staticPath": "src/assets/animations",
+    "watch": true
   }
 }

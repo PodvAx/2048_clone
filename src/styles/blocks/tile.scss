@@ -104,13 +104,27 @@
   }
 
   &--1024 {
-    background: #edc53f;
+    background: #edc74b;
     color: #f9f6f2;
-    font-size: 1.5rem;
   }
 
   &--2048 {
     background: #edc22e;
+    color: #f9f6f2;
+  }
+
+  &--4096 {
+    background: #fe7243;
+    color: #f9f6f2;
+  }
+
+  &--8192 {
+    background: #fd5922;
+    color: #f9f6f2;
+  }
+
+  &--16384 {
+    background: #fb4103;
     color: #f9f6f2;
   }
 }

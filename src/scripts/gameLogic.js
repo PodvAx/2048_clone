@@ -1,4 +1,4 @@
-import { GAME_SIZE } from "./utils/constants.js";
+import { GAME_SIZE, LOCAL_STORAGE_KEY_BEST_SCORE } from "./constants.js";
 import { randomInt, transpose, reverseRows, deepCopy } from "./utils/utils.js";
 
 export class Game {
@@ -6,8 +6,12 @@ export class Game {
     this.size = size;
     this.grid = this.createEmptyGrid();
     this.score = 0;
+
+    this.bestScore =
+      Number(localStorage.getItem(LOCAL_STORAGE_KEY_BEST_SCORE)) || 0;
     this.win = false;
     this.lose = false;
+    this.hasContinued = false;
     this.newTiles = [];
     this.movesAndMerges = [];
   }
@@ -59,7 +63,7 @@ export class Game {
     }
   }
 
-  move(direction, tileContainer) {
+  move(direction) {
     const originalGrid = deepCopy(this.grid);
 
     this.newTiles = [];
@@ -155,6 +159,11 @@ export class Game {
       ) {
         result[targetIndex] *= 2;
         this.score += result[targetIndex];
+
+        if (this.score > this.bestScore) {
+          this.bestScore = this.score;
+          localStorage.setItem(LOCAL_STORAGE_KEY_BEST_SCORE, this.bestScore);
+        }
         occupiedPositions[targetIndex] = true;
 
         const { fromCol, toCol, fromRow, toRow } = getCoordinates(
@@ -195,7 +204,7 @@ export class Game {
   }
 
   checkGameState() {
-    if (this.grid.flat().includes(2048)) this.win = true;
+    if (!this.hasContinued && this.grid.flat().includes(2048)) this.win = true;
 
     const movesAvailable = () => {
       for (let row = 0; row < this.size; row++) {
@@ -225,6 +234,7 @@ export class Game {
     this.score = 0;
     this.win = false;
     this.lose = false;
+    this.hasContinued = false;
     this.spawnTile();
     this.spawnTile();
   }

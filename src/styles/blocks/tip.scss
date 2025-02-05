@@ -1,0 +1,161 @@
+.tip {
+  z-index: 5;
+  position: absolute;
+  padding-inline: 5%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  color: #c3c2c0;
+  background: rgba(0, 0, 0, 0.9);
+  gap: 3%;
+
+  &__title {
+    font-size: calc(var(--base-unit) / 3);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--base-unit) / 8);
+    text-wrap: nowrap;
+
+    &::before {
+      content: "";
+      background-image: url("../assets/icons/main-goal.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: calc(var(--base-unit) / 4);
+      height: calc(var(--base-unit) / 4);
+    }
+
+    &--main {
+      font-size: calc(var(--base-unit) / 3);
+
+      &::before {
+        background-image: url("../assets/icons/main-goal.svg");
+      }
+    }
+
+    &--additional {
+      font-size: calc(var(--base-unit) / 4);
+
+      &::before {
+        background-image: url("../assets/icons/secondary-goal.svg");
+      }
+    }
+
+    &--small {
+      font-weight: 400;
+
+      font-size: calc(var(--base-unit) / 4);
+
+      &::before {
+        background-image: url("../assets/icons/bulb.svg");
+      }
+    }
+  }
+
+  &__text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    font-size: calc(var(--base-unit) / 5);
+    font-weight: normal;
+    gap: 5px;
+
+    &--main {
+      font-size: calc(var(--base-unit) / 5);
+    }
+
+    &--additional {
+      font-size: calc(var(--base-unit) / 6);
+    }
+
+    &--small {
+      font-weight: 300;
+      font-size: calc(var(--base-unit) / 7);
+    }
+  }
+
+  &__main-title {
+    display: flex;
+
+    align-items: center;
+    font-size: calc(var(--base-unit) / 2);
+    font-weight: 900;
+
+    gap: calc(var(--base-unit) / 8);
+    position: relative;
+
+    &::before {
+      content: "";
+      background-image: url("../assets/icons/gamepad1.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: calc(var(--base-unit) / 2);
+      height: calc(var(--base-unit) / 2);
+    }
+    &::after {
+      content: "";
+      background-image: url("../assets/icons/gamepad1.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: calc(var(--base-unit) / 2);
+      height: calc(var(--base-unit) / 2);
+    }
+  }
+
+  &__checkbox {
+    display: flex;
+
+    align-self: center;
+    align-items: center;
+    cursor: pointer;
+    gap: calc(var(--base-unit) / 8);
+    font-size: calc(var(--base-unit) / 6);
+    font-weight: normal;
+
+    transition: all 0.3s;
+
+    &:hover {
+      color: #f9f6f2;
+    }
+  }
+
+  &__checkbox-input {
+    cursor: pointer;
+    width: calc(var(--base-unit) / 4);
+    height: calc(var(--base-unit) / 4);
+    accent-color: #179921;
+  }
+
+  &__button {
+    display: flex;
+
+    align-items: center;
+    font-size: calc(var(--base-unit) / 4);
+    padding: calc(var(--base-unit) / 6) calc(var(--base-unit));
+    border: none;
+    border-radius: calc(var(--base-unit) / 20);
+    background-color: #1dae28;
+    color: #f9f6f2;
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: #179921;
+    }
+  }
+}

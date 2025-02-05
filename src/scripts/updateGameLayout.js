@@ -1,4 +1,4 @@
-import { GAME_SIZE } from "./utils/constants";
+import { GAME_SIZE } from "./constants";
 
 export function updateGameLayout() {
   const root = document.documentElement;

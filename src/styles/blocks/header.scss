@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: calc(var(--base-unit) + var(--cell-gap) * 2);
+  gap: calc(var(--cell-gap) * 6);
+  position: relative;
 
   &__title {
     background: #edc22e;
@@ -35,7 +36,7 @@
   }
 
   &__button {
-    border: none;
+    border: 2px solid #776e65;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,22 +49,54 @@
     width: var(--cell-size);
     height: var(--cell-size);
 
-    transition: 0.25s ease background;
+    transition: 0.25s ease;
 
     &--start {
       background: #1dae28;
-
       &:hover {
         background: #179921;
       }
     }
 
     &--restart {
-      background: #f1b2b2;
+      background: #f87474;
+      font-size: calc(var(--base-unit) / 4);
 
       &:hover {
-        background: #f87474;
+        background: #f63838;
       }
+    }
+
+    &:disabled {
+      background: #776e65;
+      color: #d6cdc4;
+      cursor: not-allowed;
+    }
+  }
+
+  &__show-tip {
+    position: absolute;
+    top: -50%;
+    border: none;
+    background-color: #776e65;
+    width: calc(var(--base-unit) / 4);
+    height: calc(var(--base-unit) / 4);
+    mask-image: url("../assets/icons/question-mark.svg");
+    mask-size: cover;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+      background-color: #edc22e;
+    }
+
+    &:focus-visible {
+      transform: scale(1.1);
+      background-color: #edc22e;
     }
   }
 }
