@@ -20,17 +20,26 @@ export const addSwipeControls = (game, render) => {
     const diffX = endX - startX;
     const diffY = endY - startY;
 
+    const swipeThereshold = 30;
+
+    if (
+      Math.abs(diffX) < swipeThereshold &&
+      Math.abs(diffY) < swipeThereshold
+    ) {
+      return;
+    }
+
     // Визначення напряму свайпу
     if (Math.abs(diffX) > Math.abs(diffY)) {
-      if (diffX > 30) {
+      if (diffX > swipeThereshold) {
         game.move("right");
-      } else if (diffX < -30) {
+      } else {
         game.move("left");
       }
     } else {
-      if (diffY > 30) {
+      if (diffY > swipeThereshold) {
         game.move("down");
-      } else if (diffY < -30) {
+      } else {
         game.move("up");
       }
     }
