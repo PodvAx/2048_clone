@@ -1,7 +1,13 @@
+import { handleTouchMove } from "./eventHandlers";
+
 export const addSwipeControls = (game, render) => {
   const tileContainer = document.querySelector(".tile-container");
   let startX = 0;
   let startY = 0;
+
+  tileContainer.addEventListener("touchmove", handleTouchMove, {
+    passive: false,
+  });
 
   tileContainer.addEventListener("touchstart", (e) => {
     const touch = e.touches[0];

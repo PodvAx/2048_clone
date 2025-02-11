@@ -23,3 +23,7 @@ export const handleTouchStart = (e) => {
 export const handleGestureStart = (e) => {
   e.preventDefault(); // Забороняє масштабування жестом "щипок"
 };
+
+export const handleTouchMove = (e) => {
+  e.preventDefault();
+};
