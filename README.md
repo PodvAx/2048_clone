@@ -1,4 +1,4 @@
-# 🎮 2048 Game Clone
+# 🎮 Fusion2048
 
 A clone of the popular 2048 game, built using vanilla JavaScript, HTML5, and SCSS. The goal of the game is to combine tiles with the same number until you reach the 2048 tile. This project was created to practice JavaScript logic, animation, and responsive layout design.
 
@@ -6,7 +6,7 @@ A clone of the popular 2048 game, built using vanilla JavaScript, HTML5, and SCS
 
 ## 🚀 Live Preview
 
-👉 [Play the game here](https://podvax.github.io/2048_clone/)
+👉 [Play the game here](https://podvax.github.io/Fusion2048/)
 
 ---
 
